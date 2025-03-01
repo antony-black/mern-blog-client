@@ -4,17 +4,23 @@ import Button from '@mui/material/Button';
 
 import styles from './Header.module.scss';
 import Container from '@mui/material/Container';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectAuthData } from '../../redux/slices/auth';
 
 export const Header = () => {
-  const isAuth = false;
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector(selectAuthData);
 
-  const onClickLogout = () => {};
+  const onClickLogout = () => {
+    localStorage.removeItem('token');
+    dispatch(logout());
+  };
 
   return (
     <div className={styles.root}>
       <Container maxWidth="lg">
         <div className={styles.inner}>
-          <Link to='/' className={styles.logo}>
+          <Link to="/" className={styles.logo}>
             <div>ARCHAKOV BLOG</div>
           </Link>
           <div className={styles.buttons}>
